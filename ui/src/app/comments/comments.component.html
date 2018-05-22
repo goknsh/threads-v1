@@ -1,0 +1,94 @@
+<div class="content-container">
+    <div class="overview" [hidden]="!commentsDisp">
+        <h1>Your Comments<a class="btn btn-link btn-icon" (click)="comments()"><clr-icon shape="refresh"></clr-icon></a></h1>
+        <div class="alert alert-success" [hidden]="!alertCenterSuccess">
+            <div class="alert-items">
+                <div class="alert-item static">
+                    <div class="alert-icon-wrapper">
+                        <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+                    </div>
+                    <span class="alert-text">{{alertSuccessText}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-danger" [hidden]="!alertCenterDanger">
+            <div class="alert-items">
+                <div class="alert-item static">
+                    <div class="alert-icon-wrapper">
+                        <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                    </div>
+                    <span class="alert-text">{{alertDangerText}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="loading" [hidden]="!commentLoading">
+            <span class="spinner spinner-inline">Loading...</span>
+            <span>Loading...</span>
+        </div>
+        <div class="comments">
+            <div class="comment" [hidden]="!commentEmpty">
+                <h3>Nothing yet.</h3>
+            </div>
+            <div target="_blank" class="comment" *ngFor="let item of commentData; let i = index" [attr.data-index]="i">
+                <div class="left">
+                    <h4 [innerHTML]='item["data"]["comment"]'></h4>
+                    <p>{{ commentDates[i] }} // <a href="//{{item['domain']}}{{ item['data']['url'] }}#thread-comment-{{ item['data']['thread'] }}" target="_blank">View Comment</a></p>
+                </div>
+                <div class="right" [hidden]="commentDeleted[i]">
+                    <div class="icon">
+                        <clr-icon title="Edit Comment" shape="pencil" class="edit is-normal is-solid" size="22" (click)="editComment(i)"></clr-icon>
+                        <clr-icon title="Delete Comment" shape="trash" class="delete is-normal is-solid" size="22" (click)="deleteComment(i)"></clr-icon>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <clr-modal [(clrModalOpen)]="deleteCommentModal" [clrModalSize]="'lg'">
+        <h2 class="modal-title">Delete Comment?</h2>
+        <div class="modal-body">
+            <p>Are you absolutely sure you want to delete this comment?</p>
+            <h3>{{ commentContentForModal }}</h3>
+            <p>{{ commentDateForModal }} // <a href="//{{commentURLForModal}}" target="_blank">View Comment</a></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-danger" (click)="deleteCommentModal = false; confirmDelete(commentNumber);">
+                Delete Comment
+            </button>
+        </div>
+    </clr-modal>
+    <clr-modal [(clrModalOpen)]="editPencilModal" [clrModalSize]="'lg'">
+        <h2 class="modal-title">Edit Comment</h2>
+        <div class="modal-body">
+            <form class="form" [formGroup]="editForm" (ngSubmit)="confirmEdit(commentNumber, editForm.value)">
+                <section class="form-block">
+                    <div class="form-group">
+                        <label for="currentComment">Current Comment</label>
+                        <textarea id="currentComment" value="{{commentContentForModal}}" readonly></textarea>
+                    </div>
+                </section>
+                <section class="form-block">
+                    <div class="form-group">
+                        <label for="editTo">Edit Comment to</label>
+                        <textarea id="editTo" formControlName="editTo"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" [disabled]="editForm.invalid">Cofirm Edit</button>
+                    </div>
+                </section>
+            </form>
+        </div>
+    </clr-modal>
+    
+    <div class="not-found" [hidden]="!notFound">
+        <div class="not-found">
+            <div class="hero">
+                <div class="inner">
+                    <h1>404; not found</h1>
+                    <p>We didn&rsquo;t find &ldquo;{{ currentURL }}&rdquo; our servers. Sorry. Check if the URL you entered is correct and has no typos. If you know there is supposed to be something here, please email <a href="mailto:threads@akaanksh.ga">threads@akaanksh.ga</a></p>
+                    <p><a href="/api" routerLink="/api">API</a> // <a href="/login/new" routerLink="/login/new">Login</a> // <a href="/signup" routerLink="/signup">Signup</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
