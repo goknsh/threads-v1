@@ -1,6 +1,6 @@
 [build]
-  command = "cd ui && npm i && ng build --prod --aot"
-  publish = "ui/dist"
+  command = "ng build --prod --aot"
+  publish = "dist"
   NODE_ENV = "8.11.1"
 
 [[redirects]]
