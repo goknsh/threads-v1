@@ -45,10 +45,10 @@
     </div>
     
     <clr-modal [(clrModalOpen)]="deleteCommentModal" [clrModalSize]="'lg'">
-        <h2 class="modal-title">Delete Comment?</h2>
+        <h2 class="modal-title">Delete Comment</h2>
         <div class="modal-body">
-            <p>Are you absolutely sure you want to delete this comment?</p>
-            <h3>{{ commentContentForModal }}</h3>
+            <p>Are you absolutely sure you want to delete this comment? There is no going back.</p>
+            <h3 [innerHTML]="commentContentForModal"></h3>
             <p>{{ commentDateForModal }} // <a href="//{{commentURLForModal}}" target="_blank">View Comment</a></p>
         </div>
         <div class="modal-footer">
@@ -73,7 +73,7 @@
                         <textarea id="editTo" formControlName="editTo"></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" [disabled]="editForm.invalid">Cofirm Edit</button>
+                        <button class="btn btn-primary" type="submit" [disabled]="editForm.invalid">Cofirm Edits</button>
                     </div>
                 </section>
             </form>
