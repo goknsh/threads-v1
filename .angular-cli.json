@@ -8,7 +8,7 @@
             "root": "src",
             "outDir": "dist",
             "assets": [
-                "../cdn/"
+                "./cdn"
             ],
             "index": "index.html",
             "main": "main.ts",
