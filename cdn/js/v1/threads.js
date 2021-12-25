@@ -5,7 +5,7 @@
 const threads = {
 
     about: function() {
-        console.log("ThreadsJS v0.8.0\nhttps://github.com/itsmadebyark/threads\n(c) Akaanksh Raj -- https://akaanksh.ga/\n\nAvailable functions:\nthreads.init();\nthreads.signup();\nthreads.login();\nthreads.addComment();\nthreads.reply(thread);\nthreads.delete(thread, mode);\nthreads.edit(thread);\nthreads.logout();\n\nhttps://threads.ml/api");
+        console.log("ThreadsJS v0.8.0\nhttps://github.com/itsmadebyark/threads\n(c) Akaanksh Raj -- https://akaanksh.ga/\n\nAvailable functions:\nthreads.init();\nthreads.signup();\nthreads.login();\nthreads.addComment();\nthreads.reply(thread);\nthreads.delete(thread, mode);\nthreads.edit(thread);\nthreads.logout();\n\nhttps://threads.ark.black/api");
     },
 
     init: function() {
@@ -33,7 +33,7 @@ const threads = {
                 if (response.response === "success") {
                     let mode; let showEdit; let showDelete;
                     if (user.email === response.admin) { mode = "admin" } else { mode = "user" }
-                    let html = `<input type="checkbox" id="thread-login-modal-toggle"><input type="checkbox" id="thread-signup-modal-toggle"><div class="header"><h2>Comments &mdash; ${response.count}</h2><div class="${loggedIn}-modal-toogle"><a href="#thread-login-modal"><label for="thread-login-modal-toggle">Login</label></a> // <a href="#thread-signup-modal"><label for="thread-signup-modal-toggle">Signup</label></a> // Powered by <a href="https://threads.ml" target="_blank">Threads</a></div><div class="${loggedIn}-user-info">Logged in as ${user.email} (${user.name}) // <a href="#thread-comments" id="thread-logout" onclick="threads.logout()">Logout</a> // Powered by <a href="https://threads.ml" target="_blank">Threads</a></div></div><form onsubmit="threads.addComment();return false" action="#" class="addComment ${loggedIn}"><h3>Add Comment</h3><p><textarea placeholder="Comment content" required id="thread-add-comment-textarea"></textarea></p><button id="thread-add-comment-button" type="submit">Add Comment</button><p id="thread-add-comment-message"></p></form><div class="comments">`;
+                    let html = `<input type="checkbox" id="thread-login-modal-toggle"><input type="checkbox" id="thread-signup-modal-toggle"><div class="header"><h2>Comments &mdash; ${response.count}</h2><div class="${loggedIn}-modal-toogle"><a href="#thread-login-modal"><label for="thread-login-modal-toggle">Login</label></a> // <a href="#thread-signup-modal"><label for="thread-signup-modal-toggle">Signup</label></a> // Powered by <a href="https://threads.ark.black" target="_blank">Threads</a></div><div class="${loggedIn}-user-info">Logged in as ${user.email} (${user.name}) // <a href="#thread-comments" id="thread-logout" onclick="threads.logout()">Logout</a> // Powered by <a href="https://threads.ark.black" target="_blank">Threads</a></div></div><form onsubmit="threads.addComment();return false" action="#" class="addComment ${loggedIn}"><h3>Add Comment</h3><p><textarea placeholder="Comment content" required id="thread-add-comment-textarea"></textarea></p><button id="thread-add-comment-button" type="submit">Add Comment</button><p id="thread-add-comment-message"></p></form><div class="comments">`;
                     let admin; let comments = response[0];
                     comments.forEach(function(comment) {
                         if (response.admin === comment.email) { admin = "admin" } else { admin = "notAdmin" }
@@ -48,16 +48,16 @@ const threads = {
                     }
                 }
                 if (response.response === "verify") {
-                    let html = `<h3>Could not load <a href="https://threads.ml/" target="_blank">Threads</a> because the admin has not finished setting up this domain. Sorry.</h3>`;
+                    let html = `<h3>Could not load <a href="https://threads.ark.black/" target="_blank">Threads</a> because the admin has not finished setting up this domain. Sorry.</h3>`;
                     document.querySelector('#thread-comments').innerHTML = html;
                 }
                 if (response.response === "error") {
-                    let html = `<h3>Could not load <a href="https://threads.ml/" target="_blank">Threads</a> because of a server-side error. Sorry.</h3>`;
+                    let html = `<h3>Could not load <a href="https://threads.ark.black/" target="_blank">Threads</a> because of a server-side error. Sorry.</h3>`;
                     document.querySelector('#thread-comments').innerHTML = html;
                 }
             }
         };
-        xhttp.open("GET", `https://api.threads.ml/v1/?get=comments&url=${window.location.href}`, true);
+        xhttp.open("GET", `https://api-threads.ark.black/v1/?get=comments&url=${window.location.href}`, true);
         xhttp.send();
     },
 
@@ -93,7 +93,7 @@ const threads = {
                 setTimeout(function() { document.querySelector('#thread-signup-message').innerHTML = "" }, 5000);
             }
         };
-        xhttp.open("GET", `https://api.threads.ml/v1/?signup=true&email=${document.querySelector('#thread-signup-email').value}&pass=${document.querySelector('#thread-signup-password').value}&name=${document.querySelector('#thread-signup-name').value}`, true);
+        xhttp.open("GET", `https://api-threads.ark.black/v1/?signup=true&email=${document.querySelector('#thread-signup-email').value}&pass=${document.querySelector('#thread-signup-password').value}&name=${document.querySelector('#thread-signup-name').value}`, true);
         xhttp.send();
     },
 
@@ -134,7 +134,7 @@ const threads = {
                 setTimeout(function() { document.querySelector('#thread-login-message').innerHTML = "" }, 5000);
             }
         };
-        xhttp.open("GET", `https://api.threads.ml/v1/?login=true&email=${email}&pass=${pass}`, true);
+        xhttp.open("GET", `https://api-threads.ark.black/v1/?login=true&email=${email}&pass=${pass}`, true);
         xhttp.send();
     },
 
@@ -154,7 +154,7 @@ const threads = {
                 }
             }
         }
-        xhttp.open("GET", `https://api.threads.ml/v1/?add=comment&email=${user.email}&pass=${user.pass}&comment=${comment}&url=${window.location.href}`, true);
+        xhttp.open("GET", `https://api-threads.ark.black/v1/?add=comment&email=${user.email}&pass=${user.pass}&comment=${comment}&url=${window.location.href}`, true);
         xhttp.send();
     },
 
@@ -175,7 +175,7 @@ const threads = {
                 }
             }
         }
-        xhttp.open("GET", `https://api.threads.ml/v1/?add=reply&email=${user.email}&pass=${user.pass}&thread=${thread}&comment=${comment}&url=${window.location.href}`, true);
+        xhttp.open("GET", `https://api-threads.ark.black/v1/?add=reply&email=${user.email}&pass=${user.pass}&thread=${thread}&comment=${comment}&url=${window.location.href}`, true);
         xhttp.send();
     },
 
@@ -192,7 +192,7 @@ const threads = {
                 }
             }
         }
-        xhttp.open("GET", `https://api.threads.ml/v1/?delete=comment&email=${user.email}&pass=${user.pass}&thread=${thread}&mode=${mode}&url=${window.location.href}`, true);
+        xhttp.open("GET", `https://api-threads.ark.black/v1/?delete=comment&email=${user.email}&pass=${user.pass}&thread=${thread}&mode=${mode}&url=${window.location.href}`, true);
         xhttp.send();
     },
 
@@ -213,7 +213,7 @@ const threads = {
                 }
             }
         }
-        xhttp.open("GET", `https://api.threads.ml/v1/?edit=comment&email=${user.email}&pass=${user.pass}&thread=${thread}&comment=${comment}&url=${window.location.href}`, true);
+        xhttp.open("GET", `https://api-threads.ark.black/v1/?edit=comment&email=${user.email}&pass=${user.pass}&thread=${thread}&comment=${comment}&url=${window.location.href}`, true);
         xhttp.send();
     },
 
